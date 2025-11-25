@@ -23,16 +23,16 @@
   <section class="hero fade-in"></section>
 
   <!-- Curved verse -->
-  <section class="verse-arc fade-in" aria-hidden="true">
-    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" role="img" class="verse-svg">
-      <path id="curve" fill="transparent" d="M 50 150 Q 400 0 750 150" />
-      <text text-anchor="middle" direction="rtl" style="font-weight:500;">
-        <textPath href="#curve" startOffset="50%" text-anchor="middle" dominant-baseline="text-before-edge">
-          «إِذًا لَيْسَا بَعْدُ اثْنَيْنِ بَلْ جَسَدٌ وَاحِدٌ. فَالَّذِي جَمَعَهُ اللهُ لاَ يُفَرِّقُهُ إِنْسَانٌ» — متى 19:6
-        </textPath>
-      </text>
-    </svg>
-  </section>
+<section class="verse-arc fade-in" aria-hidden="true">
+  <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" role="img" class="verse-svg" direction="rtl">
+    <path id="curve" fill="transparent" d="M 50 150 Q 400 0 750 150" />
+    <text text-anchor="middle" style="font-weight:500;">
+      <textPath id="arabicPath" href="#curve" startOffset="50%" method="stretch" text-anchor="middle" dominant-baseline="text-before-edge" unicode-bidi="bidi-override" direction="ltr">
+        <!-- Text will be injected via JS below -->
+      </textPath>
+    </text>
+  </svg>
+</section>
 
   <!-- Invitation text -->
   <section class="invitation fade-in">
@@ -112,14 +112,22 @@
 
 <h5>يرجى اعلامنا في حال عدم الحضور لغاية 01.04.2026 </h5>
 <script>
-  const audio = document.getElementById('backgroundSong');
+const originalArabicText = '«إِذًا لَيْسَا بَعْدُ اثْنَيْنِ بَلْ جَسَدٌ وَاحِدٌ. فَالَّذِي جَمَعَهُ اللهُ لاَ يُفَرِّقُهُ إِنْسَانٌ» — متى 6:91';
 
-  audio.play();
+// Reverse it for RTL path workaround
+const reversedArabicText = originalArabicText.split('').reverse().join('');
+
+// Inject into textPath
+const textPath = document.getElementById('arabicPath');
+if (textPath) {
+  textPath.textContent = reversedArabicText;
+}
 </script>
   <script src="js/script.js"></script>
 
 </body>
 </html>
+
 
 
 
