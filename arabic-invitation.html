@@ -22,17 +22,17 @@
   <!-- Top image -->
   <section class="hero fade-in"></section>
 
-  <!-- Curved verse -->
-<section class="verse-arc fade-in" aria-hidden="true">
-  <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" role="img" class="verse-svg" direction="rtl">
-    <path id="curve" fill="transparent" d="M 50 150 Q 400 0 750 150" />
-    <text text-anchor="middle" style="font-weight:500;">
-      <textPath id="arabicPath" href="#curve" startOffset="50%" method="stretch" text-anchor="middle" dominant-baseline="text-before-edge" unicode-bidi="bidi-override" direction="ltr">
-        <!-- Text will be injected via JS below -->
-      </textPath>
-    </text>
-  </svg>
-</section>
+
+<div class="arabic-verse-image fade-in">
+  <img 
+    src="media/arabic-font.png" 
+    alt="«إِذًا لَيْسَا بَعْدُ اثْنَيْنِ بَلْ جَسَدٌ وَاحِدٌ. فَالَّذِي جَمَعَهُ اللهُ لاَ يُفَرِّقُهُ إِنْسَانٌ» — متى 19:6"
+    width="600"
+    height="90"
+    loading="lazy"
+    decoding="async"
+  >
+</div>
 
   <!-- Invitation text -->
   <section class="invitation fade-in">
@@ -127,6 +127,7 @@ if (textPath) {
 
 </body>
 </html>
+
 
 
 
