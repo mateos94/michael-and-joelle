@@ -285,6 +285,43 @@ footer {
   direction: ltr; /* Force LTR after reversal */
 }
 
+.arabic-verse-image {
+  width: 100%;
+  max-width: 1100px;        /* Same max-width as your German SVG */
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  pointer-events: none;     /* So it doesn't block taps */
+  margin-top: 20px;        /* Adjust to match your German version spacing */
+  margin-bottom: 20px;
+  z-index: 3;
+}
+
+.arabic-verse-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  /* This makes it super crisp on Retina screens */
+  image-rendering: -webkit-optimize-contrast; /* Safari */
+  image-rendering: crisp-edges;
+}
+
+/* Mobile fine-tuning */
+@media (max-width: 768px) {
+  .arabic-verse-image {
+    margin-top: 20px;      /* Pull it up more on mobile like your SVG did */
+    margin-bottom: -20px;
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .arabic-verse-image {
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+}
 
 
 /* Mobile optimization */
