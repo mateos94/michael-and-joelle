@@ -224,7 +224,27 @@ window.addEventListener("scroll", () => {
   const languagebackground = document.getElementById('language-background');
 
   // Start background music immediately
-  if (audio) audio.play();
+  if (audio) {
+  // Preload muted on page load (allowed everywhere)
+  audio.muted = true;
+  audio.play().catch(e => console.log('Muted preload failed (expected on some browsers):', e));
+
+  // Function to start/unmute on user gesture
+  function startAudio() {
+    audio.muted = false;
+    audio.play().then(() => {
+    }).catch(e => {
+      console.error('Audio play failed:', e);
+      // Fallback: Show toggle button if direct play fails
+    });
+  }
+
+  // Attach to first user gesture (e.g., on page load, listen for any click/touch)
+  document.addEventListener('click', startAudio, { once: true });
+  document.addEventListener('touchstart', startAudio, { once: true });
+
+  // Optional: Manual toggle if needed
+}
 
   // Safety checks
   if (!container || !video || !preview) return;
