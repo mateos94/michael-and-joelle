@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bride & Groom Wedding Invitation</title>
+
+  <!-- Fonts & Styles (same as your original) -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Scheherazade+New&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <audio id="backgroundSong">
+    <source src="media/backgroundsong.mp3" type="audio/mp3" />     
+</audio>
+  <!-- Top image -->
+  <section class="hero fade-in"></section>
+
+  <!-- Curved verse -->
+  <section class="verse-arc fade-in" aria-hidden="true">
+    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" role="img" class="verse-svg">
+      <path id="curve" fill="transparent" d="M 50 150 Q 400 0 750 150" />
+      <text text-anchor="middle" direction="rtl" style="font-style:italic;">
+        <textPath href="#curve" startOffset="50%" text-anchor="middle" dominant-baseline="text-before-edge">
+          «إِذًا لَيْسَا بَعْدُ اثْنَيْنِ بَلْ جَسَدٌ وَاحِدٌ. فَالَّذِي جَمَعَهُ اللهُ لاَ يُفَرِّقُهُ إِنْسَانٌ» — متى 19:6
+        </textPath>
+      </text>
+    </svg>
+  </section>
+
+  <!-- Invitation text -->
+  <section class="invitation fade-in">
+    <h2 class="arabic-body">تتشرف</h2>
+    <h3 class="arabic-body">عائلة السيد رزق الله صومي و عائلة السيد جورج الججي</h3>
+    <h2 class="arabic-body">بدعوتكم لحضور حفل اكليل ولديهما</h2>
+    <h1 class="arabic-heading">مايكل &amp; جويل</h1>
+    <p class="arabic-body">وذلك يوم السبت المصادف 23.05.2026</p>
+  </section>
+
+  <!-- Second image -->
+  <section class="hero second-image fade-in"></section>
+
+  <!-- Details section -->
+  <section class="details fade-in">
+    <div class="date-block">
+      <h3 class="date-main">23 | 05 | 2026</h3>
+      <div class="date-line">
+        <span></span>
+        <p>السبت</p>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- <div class="countdown" id="countdown">Loading countdown...</div> -->
+
+<div class="event-grid">
+
+  <div class="event-card side">
+    <img src="media/church.png" class="event-icon" alt="Church">
+    <h4 class="event-venue">SINT KURYAKOS</h4>
+    <p class="event-address">Wesselerbrinklaan 110<br>7544 JZ Enschede</p>
+
+<div class="event-footer">
+  <div class="event-time">
+    <img src="media/time.png" class="time-icon" alt="Time">
+    <span>17:30</span>
+  </div>
+
+  <a href="https://maps.google.com/?q=Wesselerbrinklaan+110+Enschede"
+     class="map-btn" target="_blank">
+     <img src="media/map.png" class="map-icon" alt="Map">
+  </a>
+</div>
+
+  </div>
+
+  <div class="event-card side">
+    <img src="media/cheers.png" class="event-icon" alt="Party">
+    <h4 class="event-venue">EVENTIQUE</h4>
+    <p class="event-address">De Reulver 114<br>7544 RT Enschede</p>
+
+    <div class="event-footer">
+  <div class="event-time">
+    <img src="media/time.png" class="time-icon" alt="Time">
+    <span>19:00</span>
+  </div>
+
+  <a href="https://maps.google.com/?q=De+Reulver+114+Enschede"
+     class="map-btn" target="_blank">
+     <img src="media/map.png" class="map-icon" alt="Map">
+  </a>
+</div>
+  </div>
+</div>
+
+
+  </section>
+
+  <footer class="fade-in">
+    <p class="with-love arabic-body">مع خالص المحبة،</p>
+    <p class="footer-names arabic-heading">مايكل &amp; جويل </p>
+  </footer>
+
+<div id="petal-container"></div>
+<div id="gold-sparkle-layer"></div>
+
+<h5>يرجى اعلامنا في حال الحضور من عدمه بحلول 20-04-2026 على أقصى تقدير</h5>
+
+  <script src="js/script.js"></script>
+
+</body>
+</html>

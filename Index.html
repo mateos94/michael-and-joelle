@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="envelope-page">
+
+  <audio id="backgroundSong">
+    <source src="media/song.mp3" type="audio/mp3" />     
+</audio>
+  <div class="envelope-container">
+    <!-- Closed envelope preview -->
+    <img src="media/envelope-closed.png" alt="Closed Wedding Envelope" class="envelope-preview" />
+
+    <!-- Opening animation video -->
+    <video id="envelopeVideo" preload="auto" playsinline>
+      <source src="media/envelope-opening.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Language Selection Overlay -->
+
+  <img id="language-background" class="hidden" src="media/language-image.jpg" alt="Background"/>
+
+
+<div id="language-selection" class="hidden">
+  <div class="language-card">
+    <div class="buttons">
+      <button onclick="location.href='invitation.html'">Deutsch</button>
+      <button onclick="location.href='arabic-invitation.html'">العربية</button>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- keep envelope behavior consistent with your original working script -->
+  <script src="js/script.js"></script>
+</body>
+</html>
