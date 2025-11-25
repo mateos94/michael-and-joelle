@@ -292,7 +292,7 @@ footer {
   padding: 0 20px;
   box-sizing: border-box;
   pointer-events: none;     /* So it doesn't block taps */
-  margin-top: 20px;        /* Adjust to match your German version spacing */
+  margin-top: -30px;        /* Adjust to match your German version spacing */
   margin-bottom: 20px;
   z-index: 3;
 }
@@ -310,7 +310,7 @@ footer {
 /* Mobile fine-tuning */
 @media (max-width: 768px) {
   .arabic-verse-image {
-    margin-top: 20px;      /* Pull it up more on mobile like your SVG did */
+    margin-top: -30px;      /* Pull it up more on mobile like your SVG did */
     margin-bottom: -20px;
     padding: 0 15px;
   }
@@ -318,7 +318,7 @@ footer {
 
 @media (max-width: 480px) {
   .arabic-verse-image {
-    margin-top: 20px;
+    margin-top: -30px;
     padding: 0 10px;
   }
 }
