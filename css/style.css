@@ -1,1 +1,606 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@400;500&display=swap');
+
+/* local Diwani TTF (you said font is in fonts folder root) */
+@font-face {
+  font-family: 'DiwaniSimpleStriped';
+  src: url('../fonts/Dwnspstr.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  background: #fbf5e1;
+  color: #444;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+h5{
+  text-align: center;
+  padding-left: 5px;
+}
+
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero images with top and bottom fade (same images you used earlier) */
+.hero {
+  position: relative;
+  background: url('../media/first-image.jpg') center/cover no-repeat;
+  height: 120dvh;  
+  padding-top: 140px;
+  margin-top: -140px;
+  overflow: hidden;
+}
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  z-index: 2;
+}
+.hero::before {
+  top: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, #fbf5e1, transparent);
+}
+.hero::after {
+  bottom: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, #fbf5e1 80%);
+}
+
+/* Second image */
+.second-image {
+  position: relative;
+  background: url('../media/second-image.jpg') center/cover no-repeat;
+  height: 50dvh;
+  margin-top: 70px;
+}
+
+
+
+/* Invitation section */
+.invitation {
+  margin: 2em auto 3em;
+  padding: 1em;
+  color: #333;
+}
+.invitation h1 {
+  font-family: 'Alex Brush', cursive;
+  font-size: 4rem;
+  margin: 0.2em 0;
+  color: #c7a86f;
+  font-weight: 400;
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(199, 168, 111, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.invitation h2 {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-top: 0.4em;
+    z-index: 4;
+
+}
+.invitation p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Date block */
+.date-block {
+  margin: 3em auto 1.5em;
+}
+.date-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  letter-spacing: 6px;
+  color: #2f2f2f;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+.date-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.date-line span {
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: #bfa055;
+}
+.date-line p {
+  margin: 0;
+  font-size: 1rem;
+  color: #777;
+}
+
+/* Countdown & location */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 1.2em;
+  font-family: 'Playfair Display', serif;
+  margin: 2em 0;
+  transform: scale(0.8);
+  opacity: 0.9;
+
+}
+.countdown .time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.countdown .number {
+  font-size: 1.8rem;
+  color: #2f2f2f;
+  letter-spacing: 1px;
+}
+.countdown .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #888;
+  letter-spacing: 0.5px;
+  margin-top: 0.2em;
+}
+.location {
+  margin-top: 2em;
+}
+a.location-link {
+  display: inline-block;
+  background: #c7b198;
+  color: white;
+  text-decoration: none;
+  padding: 0.8em 1.5em;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+a.location-link:hover {
+  background: #a58973;
+}
+
+/* Footer */
+footer {
+  margin-top: 4em;
+  padding-bottom: 1em;
+  text-align: center;
+}
+footer .with-love {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: #999;
+  margin: 0;
+  letter-spacing: 1px;
+}
+footer .footer-names {
+  font-family: 'Alex Brush', cursive;
+  font-size: 2.2rem;
+  color: #c7a86f;
+  margin: 0.3em 0 0;
+  font-weight: 400;
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(199, 168, 111, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, text-shadow 0.4s ease;
+}
+footer .footer-names:hover {
+  transform: scale(1.03);
+  text-shadow:
+    0 2px 3px rgba(255, 255, 255, 0.8),
+    0 3px 6px rgba(199, 168, 111, 0.4),
+    0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Arabic / RTL helpers */
+.invitation-page,
+.invitation-page body,
+[dir="rtl"] {
+  direction: rtl;
+  text-align: center;
+}
+
+.arabic-heading {
+  font-family: 'DiwaniSimpleStriped', serif !important;
+  font-size: 4rem;
+  color: #c7a86f;
+  text-align: center;
+  direction: rtl;
+  text-shadow:
+    0 1px 1px rgba(255,255,255,0.7),
+    0 2px 4px rgba(199,168,111,0.3);
+}
+
+.arabic-body {
+  font-family: 'Scheherazade New', serif !important;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.invitation h1,
+.invitation h2,
+.invitation p,
+footer {
+  text-align: center;
+}
+
+
+.verse-arc {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+
+  margin-top: -30px;
+
+  z-index: 3;
+  background: linear-gradient(to bottom, transparent, #fbf5e1 40%);
+}
+
+.verse-arc svg {
+  width: 100%;
+  max-width: 1100px;   /* increased so long verses fit */
+  height: 230px;        /* increased so arc isn’t squashed */
+  overflow: visible;    /* prevents text clipping */
+}
+
+.verse-arc text {
+  font-style: italic;
+  fill: #5a5a5a;
+  font-size: 1.25rem;   /* readable size */
+  letter-spacing: 0.3px;
+  text-anchor: middle;
+  direction: rtl;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.verse-arc textPath {
+  text-anchor: middle;
+}
+
+
+
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .hero { height: 50dvh; background-position: center; background-size: cover;   z-index: 0;}
+  .second-image { height: 30dvh; background-position: center; background-size: cover; }
+
+  .fade-in { transform: translateY(20px); transition: opacity 1.2s ease, transform 1.2s ease; }
+
+  .verse-arc {
+    margin-top: -100px;
+    margin-bottom: -60px;
+  }
+  .verse-arc svg {
+    height: 140px;
+  }
+  .verse-arc text {
+    font-size: 1.4rem;
+  }
+
+  .invitation { margin: 2em auto; padding: 1em 1.2em; }
+  .invitation h1 { font-size: 3.2rem; text-shadow: 0 1px 1px rgba(255,255,255,0.6), 0 2px 3px rgba(199,168,111,0.3); }
+  .invitation h2 { font-size: 1rem; margin-bottom: 0.4em; margin-top: 0.5rem;}
+  .invitation p { font-size: 1rem; }
+
+  .date-block { margin: 2.5em auto 1em; }
+  .date-main { font-size: 1.8rem; letter-spacing: 4px; }
+  .date-line { gap: 10px; }
+  .date-line span { width: 45px; }
+  .date-line p { font-size: 0.95rem; }
+
+  .countdown { gap: 0.8em; }
+  .countdown .number { font-size: 1.4rem; }
+  .countdown .label { font-size: 0.7rem; }
+
+  a.location-link { font-size: 1rem; padding: 0.8em 1.5em; background: #c7b198; }
+  a.location-link:hover { background: #a58973; }
+
+  footer { margin-top: 3em; font-size: 0.85rem; }
+}
+
+/* Envelope Intro Page (Video version) - keep your original behavior */
+.envelope-page {
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.envelope-container {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s ease;
+}
+
+.envelope-preview {
+  width: 90vw;
+  max-width: 520px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.5s ease, transform 0.4s ease;
+}
+
+.envelope-container:hover .envelope-preview {
+  transform: scale(1.02);
+}
+
+.envelope-container video {
+  width: 90vw;
+  max-width: 520px;
+  border-radius: 14px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Fade out to next page transition */
+.fade-out {
+  animation: fadeToWhite 1s ease forwards;
+}
+@keyframes fadeToWhite {
+  0% { opacity: 1; }
+  100% { opacity: 0; background-color: #f8f5f2; }
+}
+
+
+/* Language Selection Overlay */
+#language-selection {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  background: rgba(255, 255, 255, 0.6);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 1s ease;
+  z-index: 999;
+}
+#language-background{
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+
+  width: 100vw;
+  height: 100vh;
+
+    object-fit: cover;  /* show FULL image, no cropping */
+  object-position: center;
+
+  background-color: #fbf5e1;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 1s ease, visibility 1s ease;
+
+}
+#language-background.show{
+  visibility: visible;
+  opacity: 1;
+  /*filter: blur(4px);
+  transform: scale(1.05);*/
+}
+
+#language-selection.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+.language-card .buttons {
+  display:flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.language-card button {
+  background-color: #c7a86f;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-card button:hover {
+  background-color: #b89559;
+  transform: translateY(-2px);
+}
+
+/* Smooth fade-to-white for the video */
+.video-fade-out {
+  animation: fadeToWhite 1s ease forwards;
+}
+
+@keyframes fadeToWhite {
+  0% { opacity: 1; }
+  100% {
+    opacity: 0;
+    background-color: #f8f5f1;
+  }
+}
+
+/* ---------------- Flower Petal Animation ---------------- */
+#petal-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.petal {
+  position: absolute;
+  top: -5vh;
+  width: 25px;
+  height: 25px;
+  background-image: url("../media/petal.png"); /* replace with your petal */
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* ---------------- Gold Sparkle Animation Layer ---------------- */
+#gold-sparkle-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  background-image: radial-gradient(
+      circle,
+      rgba(255, 223, 150, 0.7) 0%,
+      transparent 60%
+  ),
+  url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYfAAAAEklEQVR42mNk+P///38GBgYGABQMAwdcHkR5AAAAAElFTkSuQmCC"); /* tiny white dot */
+  background-repeat: repeat;
+  background-size: 150px 150px;
+  mix-blend-mode: screen;
+}
+
+#gold-sparkle-layer.active {
+  opacity: 1;
+  animation: sparkle-flicker 2s infinite linear;
+}
+
+@keyframes sparkle-flicker {
+  0% { background-position: 0 0; }
+  100% { background-position: 400px 400px; }
+}
+
+
+
+.event-grid {
+  display: flex;
+  gap: 0.6em;
+  justify-content: center;
+}
+
+.event-card.side {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  text-align: center; /* <-- this fixes the left alignment issue */
+}
+
+
+.event-icon {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 0.4em;
+}
+
+.event-venue {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.event-address {
+  font-size: 0.75rem;
+  color: #666;
+  line-height: 1.2;
+  margin: 0.3em 0 0.5em;
+}
+
+.event-footer {
+  text-align: left; /* resets the centering */
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  margin-top: 0.25em;
+  width: 100%;
+}
+
+.event-time {
+  display: flex;
+  align-items:center;
+  gap: 0.28em;
+  font-size: 0.88rem;
+  color: #333;
+  line-height: 1; /* keeps it tight */
+}
+
+.map-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.5em;
+  padding: 0.28em;
+  border-radius: 50%;
+  text-decoration: none;
+  width: 24px;
+  height: 24px;
+}
+
+.map-btn:hover {
+  background: #fdefdf;
+}
+
+.time-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.9;
+}
+
+.map-icon {
+  width: 13px;
+  height: 13px;
+  opacity: 0.9;
+}
