@@ -221,7 +221,7 @@ footer .footer-names:hover {
 }
 
 .arabic-heading {
-  font-family: 'DiwaniSimpleStriped', serif !important;
+  font-family: 'DiwaniSimpleStriped', 'Scheherazade New', "SF Arabic", "Geeza Pro", sans-serif !important;
   font-size: 4rem;
   color: #c7a86f;
   text-align: center;
@@ -232,7 +232,7 @@ footer .footer-names:hover {
 }
 
 .arabic-body {
-  font-family: 'Scheherazade New', serif !important;
+  font-family: 'Scheherazade New', "SF Arabic", "Geeza Pro", sans-serif !important;
   font-size: 1rem;
   line-height: 1.6;
   color: #444;
@@ -602,4 +602,5 @@ footer {
   width: 13px;
   height: 13px;
   opacity: 0.9;
+
 }
