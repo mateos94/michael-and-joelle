@@ -348,7 +348,7 @@ footer {
     font-size: 1.3rem;
   }
 
-  .invitation { margin: 2em auto; padding: 1em 1.2em; }
+  .invitation { margin: 0.1em auto; padding: 1em 1.2em; }
   .invitation h1 { font-size: 3.2rem; text-shadow: 0 1px 1px rgba(255,255,255,0.6), 0 2px 3px rgba(199,168,111,0.3); }
   .invitation h2 { font-size: 1rem; margin-bottom: 0.4em; margin-top: 0.5rem;}
   .invitation p { font-size: 1rem; }
