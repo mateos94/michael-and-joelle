@@ -72,7 +72,7 @@ window.addEventListener("load", () => {
         }, checkInterval);
 
       }, 300); // small fade delay
-    }, 3000); // your original 3s delay
+    }, 4000); // your original 3s delay
   }
 
   // ---- SAFER PARALLAX (rAF + clamped) ----
