@@ -740,3 +740,14 @@ footer {
   margin-left: 0;
   margin-right: 0.3em;
 }
+
+.invitation-footer .footer-text {
+    white-space: nowrap;                /* stay on one line */
+    font-size: clamp(0.6rem, 2.8vw, 1rem);  /* auto scale */
+    overflow: hidden;                   /* prevent overflow */
+    text-overflow: ellipsis;            /* safety */
+    display: block;
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
+}
