@@ -353,13 +353,16 @@ window.addEventListener("scroll", () => {
       if (lang === 'de' || lang === 'deu' || lang === 'german') {
         showEl(germanSection);
         germanSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+        document.dispatchEvent(new Event("languageSelected"));
       } else if (lang === 'ar' || lang === 'arabic') {
         showEl(arabicSection);
         arabicSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+        document.dispatchEvent(new Event("languageSelected"));
       } else {
         // default: german
         showEl(germanSection);
         germanSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+        document.dispatchEvent(new Event("languageSelected"));
       }
 
 document.querySelectorAll('.hero').forEach(h => h.style.opacity = '1');
@@ -412,49 +415,57 @@ setTimeout(() => {
 })(); 
 
 
-// --- Auto-fit footer line to one row ---
+// --- Auto-fit footer line to always stay in 1 row ---
 (function () {
-  function fitFooterLine(el, minSizePx) {
+  function fitFooterLine(el, minSizePx = 9) {
     if (!el) return;
 
-    // Reset to whatever CSS gives us first
+    // reset first
     el.style.fontSize = "";
     el.style.whiteSpace = "nowrap";
 
-    // Read computed starting size
     let size = parseFloat(window.getComputedStyle(el).fontSize);
-    const minSize = minSizePx || 9; // don't go crazy small
+    const minSize = minSizePx;
     const step = 0.5;
 
-    // If layout is weird (0 width), bail out
-    if (!el.clientWidth) return;
+    // safety: avoid infinite loop
+    let guard = 50;
 
-    // Shrink until it fits or reaches min size
-    while (el.scrollWidth > el.clientWidth && size > minSize) {
+    // shrink until it fits
+    while (el.scrollWidth > el.clientWidth && size > minSize && guard-- > 0) {
       size -= step;
       el.style.fontSize = size + "px";
     }
   }
 
-  function fitAllInvitationFooters() {
-    const footers = document.querySelectorAll(".invitation-footer");
-    footers.forEach(el => fitFooterLine(el, 9));
+  function fitAllFooterLines() {
+    const lines = document.querySelectorAll(".invitation-footer .footer-text");
+    lines.forEach(el => fitFooterLine(el));
   }
 
-  // Run after page load
+  // Run after EVERYTHING is loaded (fonts + images)
   window.addEventListener("load", () => {
-    setTimeout(fitAllInvitationFooters, 300); // small delay to let fonts/layout settle
+    setTimeout(fitAllFooterLines, 200);    // let layout settle
+    setTimeout(fitAllFooterLines, 800);    // run again after images settle
+    setTimeout(fitAllFooterLines, 1500);   // run again after late layout shifts
   });
 
-  // Re-run on resize/orientation change
+  // Run after fonts finish loading
+  if (document.fonts) {
+    document.fonts.ready.then(() => {
+      setTimeout(fitAllFooterLines, 200);
+    });
+  }
+
+  // Run after orientation change / resize
   window.addEventListener("resize", () => {
-    setTimeout(fitAllInvitationFooters, 200);
+    setTimeout(fitAllFooterLines, 150);
   });
 
-  // Also run again a bit after language selection auto-scroll finishes
-  // (in case heights/widths change)
+  // Run after language has been selected (your app flow)
   document.addEventListener("languageSelected", () => {
-    setTimeout(fitAllInvitationFooters, 1000);
+    setTimeout(fitAllFooterLines, 300);
+    setTimeout(fitAllFooterLines, 1200);  // also after auto-scroll finishes
   });
 })();
 
