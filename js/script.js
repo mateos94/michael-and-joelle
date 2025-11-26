@@ -395,7 +395,7 @@ setTimeout(() => {
     window.scrollTo({ top: dest, behavior: "auto" });
     
   }, 3000);
-}, 6000);
+}, 8000);
 
 
     }, { passive: false });
