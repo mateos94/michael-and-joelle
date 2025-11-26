@@ -412,34 +412,49 @@ setTimeout(() => {
 })(); 
 
 
-//fit footer in 1 line
-function fitOneLine(el, maxSize = 16, minSize = 10) {
-  if (!el) return;
-  
-  let size = maxSize;
-  el.style.whiteSpace = "nowrap";
-  el.style.fontSize = size + "px";
-  el.style.textOverflow = "clip"; // no ellipsis
+// --- Auto-fit footer line to one row ---
+(function () {
+  function fitFooterLine(el, minSizePx) {
+    if (!el) return;
 
-  // shrink until it fits
-  while (el.scrollWidth > el.clientWidth && size > minSize) {
-    size -= 0.5;
-    el.style.fontSize = size + "px";
+    // Reset to whatever CSS gives us first
+    el.style.fontSize = "";
+    el.style.whiteSpace = "nowrap";
+
+    // Read computed starting size
+    let size = parseFloat(window.getComputedStyle(el).fontSize);
+    const minSize = minSizePx || 9; // don't go crazy small
+    const step = 0.5;
+
+    // If layout is weird (0 width), bail out
+    if (!el.clientWidth) return;
+
+    // Shrink until it fits or reaches min size
+    while (el.scrollWidth > el.clientWidth && size > minSize) {
+      size -= step;
+      el.style.fontSize = size + "px";
+    }
   }
-}
 
-// Run after language loads
-window.addEventListener("load", () => {
-  const footer = document.querySelector(".footer-text");
-  fitOneLine(footer, 16, 10);
-});
+  function fitAllInvitationFooters() {
+    const footers = document.querySelectorAll(".invitation-footer");
+    footers.forEach(el => fitFooterLine(el, 9));
+  }
 
-// Also run after language selection because text appears then
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    const footer = document.querySelector(".footer-text");
-    fitOneLine(footer, 16, 10);
-  }, 1000);
-});
+  // Run after page load
+  window.addEventListener("load", () => {
+    setTimeout(fitAllInvitationFooters, 300); // small delay to let fonts/layout settle
+  });
 
+  // Re-run on resize/orientation change
+  window.addEventListener("resize", () => {
+    setTimeout(fitAllInvitationFooters, 200);
+  });
+
+  // Also run again a bit after language selection auto-scroll finishes
+  // (in case heights/widths change)
+  document.addEventListener("languageSelected", () => {
+    setTimeout(fitAllInvitationFooters, 1000);
+  });
+})();
 
