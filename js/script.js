@@ -25,55 +25,7 @@ window.addEventListener("load", () => {
   window.addEventListener("scroll", cancelAutoScroll, { once: true, passive: true });
   window.addEventListener("touchstart", cancelAutoScroll, { once: true, passive: true });
 
-  // Enable/disable easily
-  const enableAutoScroll = true;
 
-  if (enableAutoScroll) {
-    autoScrollTimeout = setTimeout(() => {
-      if (autoScrollCanceled) return;
-
-      // subtle fade-out of the first hero (keeps visual continuity)
-      firstHero.classList.add("fade-section-out");
-
-      // small delay so fade begins before scrolling
-      setTimeout(() => {
-        if (autoScrollCanceled) return;
-
-        // Compute destination. Subtract a small offset so the second hero sits nicely (not behind gradient).
-        // Adjust offset if you have top padding or overlays (140 is your earlier padding, but we use a safer 20 here).
-        const dest = document.documentElement.scrollHeight - window.innerHeight;
-
-        // If user interacts, abort auto-scroll
-        let userInterrupted = false;
-        const onUserDuringAuto = () => { userInterrupted = true; };
-        window.addEventListener("wheel", onUserDuringAuto, { once: true, passive: true });
-        window.addEventListener("touchstart", onUserDuringAuto, { once: true, passive: true });
-        window.addEventListener("keydown", onUserDuringAuto, { once: true, passive: true });
-
-        // start smooth scroll
-        window.scrollTo({ top: dest, behavior: "smooth" });
-
-        // monitor progress: stop when close enough or user interrupts or timeout (4s)
-        let checks = 0;
-        const maxChecks = 80; // ~4s (80 * 50ms)
-        const checkInterval = 50;
-        const monitor = setInterval(() => {
-          checks++;
-          const current = window.scrollY || window.pageYOffset;
-          if (userInterrupted || Math.abs(current - dest) < 3 || checks >= maxChecks) {
-            clearInterval(monitor);
-            // final snap to exact destination (ensures consistent layout)
-            if (!userInterrupted) window.scrollTo({ top: dest, behavior: "auto" });
-            // cleanup listeners
-            window.removeEventListener("wheel", onUserDuringAuto);
-            window.removeEventListener("touchstart", onUserDuringAuto);
-            window.removeEventListener("keydown", onUserDuringAuto);
-          }
-        }, checkInterval);
-
-      }, 300); // small fade delay
-    }, 4000); // your original 3s delay
-  }
 
   // ---- SAFER PARALLAX (rAF + clamped) ----
   let ticking = false;
@@ -283,10 +235,181 @@ window.addEventListener("scroll", () => {
         languagebackground.classList.add('show');
         languageSelection.classList.remove('hidden');
         languageSelection.classList.add('show');
+          const envelopeContainer = document.querySelector('.envelope-page');
+    if (envelopeContainer) envelopeContainer.style.display = 'none';
+
+    // Then show German or Arabic section
+    showEl(germanSection);
+    setupScrollEffects();
       }
     }, 1000); // matches fade-to-white timing
   });
 
   document.addEventListener('DOMContentLoaded', initEnvelope);
 })();
+
+
+/* ======= Minimal single-page wiring (non-invasive) =======
+   - Uses inline style.display toggles (no CSS edits)
+   - Keeps original script.js untouched
+   - Append this at the end of your js/script.js or the inline snippet
+=========================================================== */
+(function () {
+  // Look up elements (ids/classes you already use)
+  const languageSelection = document.getElementById('language-selection');
+  const languageBackground = document.getElementById('language-background');
+  const langBtns = document.querySelectorAll('.language-btn'); // buttons with data-lang
+  const germanSection = document.getElementById('german-section');
+  const arabicSection = document.getElementById('arabic-section');
+  const envelopeVideo = document.getElementById('envelopeVideo');
+  const envelopePreview = document.querySelector('.envelope-preview');
+  const audio = document.getElementById('backgroundSong');
+
+  if (!languageSelection || !langBtns.length || !germanSection || !arabicSection) {
+    // required elements missing — bail out silently
+    return;
+  }
+
+  // Helper to hide an element (preserve inline display removal)
+  function hideEl(el) {
+    if (!el) return;
+    el.style.display = 'none';
+    el.classList.add('hidden'); // keep your class toggles too for compatibility
+  }
+  function showEl(el) {
+    if (!el) return;
+    el.style.display = ''; // fallback to CSS-controlled display
+    el.classList.remove('hidden');
+  }
+
+  // On initial load: ensure only the envelope or nothing is visible.
+  // We hide both invitation sections and language overlay/background.
+  hideEl(germanSection);
+  hideEl(arabicSection);
+  hideEl(languageSelection);
+  hideEl(languageBackground);
+
+  // If your envelope preview is shown & video exists, make sure it's visible
+  if (envelopePreview) envelopePreview.style.display = '';
+
+  // When the envelope video ends your original script adds .show or removes .hidden.
+  // To be safe, intercept Mutation or add a small fallback: observe the video 'ended' event
+  if (envelopeVideo) {
+    envelopeVideo.addEventListener('ended', () => {
+      // ensure language overlay/background are actually visible (not just class toggles)
+      showEl(languageBackground);
+      showEl(languageSelection);
+
+      // scroll to top so overlay sits at the top (catches the "big white box" problem)
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+
+    // If users click the preview to play the video (your original handler), keep that behavior:
+    if (envelopePreview) {
+      envelopePreview.addEventListener('click', () => {
+        // preview hidden in original code; ensure it's hidden here too
+        envelopePreview.style.display = 'none';
+        if (envelopeVideo) envelopeVideo.style.display = 'block';
+      });
+    }
+  }
+
+  // Start music helper (user gesture must be on this page)
+  function startMusic() {
+    if (!audio) return;
+    try {
+      audio.muted = false;
+      audio.currentTime = 0;
+      const p = audio.play();
+      if (p && p.catch) {
+        p.catch(() => {
+          // allow resume on next user gesture if blocked
+          const resume = () => { audio.play().catch(()=>{}); document.removeEventListener('touchstart', resume); document.removeEventListener('click', resume); };
+          document.addEventListener('touchstart', resume, { once: true });
+          document.addEventListener('click', resume, { once: true });
+        });
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  // Main language button behavior: hide overlay, start music, show requested invitation
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+
+      const lang = btn.dataset && btn.dataset.lang ? btn.dataset.lang : btn.getAttribute('data-lang');
+
+      // user gesture -> start music
+      startMusic();
+
+      // hide overlay/background (force hide so it won't remain in layout)
+      hideEl(languageSelection);
+      hideEl(languageBackground);
+
+      // hide both invitations first, then show the selected one
+      hideEl(germanSection);
+      hideEl(arabicSection);
+
+      if (lang === 'de' || lang === 'deu' || lang === 'german') {
+        showEl(germanSection);
+        germanSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+      } else if (lang === 'ar' || lang === 'arabic') {
+        showEl(arabicSection);
+        arabicSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+      } else {
+        // default: german
+        showEl(germanSection);
+        germanSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }
+
+document.querySelectorAll('.hero').forEach(h => h.style.opacity = '1');
+window.scrollTo({ top: 0, behavior: 'instant' });
+
+      // For safety: hide envelope video/preview so it doesn't reserve vertical space
+      if (envelopeVideo) { envelopeVideo.style.display = 'none'; }
+      if (envelopePreview) { envelopePreview.style.display = 'none'; }
+
+// ---------- AUTO-SCROLL AFTER LANGUAGE SELECTION (cancellable) ----------
+let langAutoScrollCanceled = false;
+
+// if the user scrolls themselves, cancel the upcoming auto-scroll
+const cancelLangAutoScroll = () => {
+  langAutoScrollCanceled = true;
+  window.removeEventListener("scroll", cancelLangAutoScroll);
+};
+window.addEventListener("scroll", cancelLangAutoScroll, { passive: true });
+
+setTimeout(() => {
+  if (langAutoScrollCanceled) return; // user scrolled already, don't force scroll
+
+  const dest = document.documentElement.scrollHeight - window.innerHeight;
+
+  window.scrollTo({ top: dest, behavior: "smooth" });
+
+  // safety snap after animation completes
+  setTimeout(() => {
+    if (langAutoScrollCanceled) return; // if they scrolled during the smooth scroll, don't snap
+    window.scrollTo({ top: dest, behavior: "auto" });
+    
+  }, 3000);
+}, 4000);
+
+
+    }, { passive: false });
+  });
+
+  // Optional: expose a go-back helper if you want to test returning to language overlay
+  window.__showLanguageOverlay = function() {
+    // hide sections
+    hideEl(germanSection);
+    hideEl(arabicSection);
+    // show overlay
+    showEl(languageBackground);
+    showEl(languageSelection);
+    window.scrollTo({ top:0, behavior:'instant' });
+  };
+
+})(); 
+
+
 
