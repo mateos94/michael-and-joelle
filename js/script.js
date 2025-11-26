@@ -412,4 +412,34 @@ setTimeout(() => {
 })(); 
 
 
+//fit footer in 1 line
+function fitOneLine(el, maxSize = 16, minSize = 10) {
+  if (!el) return;
+  
+  let size = maxSize;
+  el.style.whiteSpace = "nowrap";
+  el.style.fontSize = size + "px";
+  el.style.textOverflow = "clip"; // no ellipsis
+
+  // shrink until it fits
+  while (el.scrollWidth > el.clientWidth && size > minSize) {
+    size -= 0.5;
+    el.style.fontSize = size + "px";
+  }
+}
+
+// Run after language loads
+window.addEventListener("load", () => {
+  const footer = document.querySelector(".footer-text");
+  fitOneLine(footer, 16, 10);
+});
+
+// Also run after language selection because text appears then
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const footer = document.querySelector(".footer-text");
+    fitOneLine(footer, 16, 10);
+  }, 1000);
+});
+
 
