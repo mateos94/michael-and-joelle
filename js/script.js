@@ -392,7 +392,7 @@ setTimeout(() => {
     window.scrollTo({ top: dest, behavior: "auto" });
     
   }, 3000);
-}, 4000);
+}, 6000);
 
 
     }, { passive: false });
